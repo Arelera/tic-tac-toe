@@ -1,9 +1,7 @@
-// Dirth code, the usual :(
-
-let gameboard = ['', '', '', '', '', '', '', '', ''];
-let winnerItem = '';
-let gamePlaying = false;
 const Gameboard = (() => {
+  let gameboard = ['', '', '', '', '', '', '', '', ''];
+  let winnerItem = '';
+  let gamePlaying = false;
   // add a resetBoard function later, i couldn't do it rn
   let resetBoard = () => gameboard.forEach((spot, i) => (gameboard[i] = ''));
 
@@ -22,7 +20,7 @@ const Gameboard = (() => {
 
   // win/draw check
   const winCheck = (gameboard) => {
-    console.log('winCheck time: ' + gameboard);
+    console.log('winCheck time');
     for (let i = 0; i < 3; i++) {
       // vertical check
       if (
@@ -85,7 +83,6 @@ const Gameboard = (() => {
     if (winnerItem !== '') {
       console.log('Someone won or draw');
       gamePlaying = false;
-      Game.winnerEvaluator(winnerItem);
     }
     console.log(gameboard);
   };
@@ -99,21 +96,18 @@ const Gameboard = (() => {
       for (let i = 0; i < 9; i++) {
         document.getElementById('spot-' + i).firstChild.textContent = ' ';
         theGameboard[i] = '';
-        winnerItem = '';
       }
       console.log('NEWGAMEBTN ');
-      document.querySelector('.pb0').classList.remove('winner');
-      document.querySelector('.pb1').classList.remove('winner');
     });
   };
 
   // who won tho?
 
-  return { resetBoard, boardStarter, winCheck, newGame };
+  return { gameboard, resetBoard, boardStarter, winCheck, newGame, winnerItem };
 })();
 
 const Player = (item, name) => {
-  const play = (i) => (gameboard[i] = item);
+  const play = (i) => (Gameboard.gameboard[i] = item);
 
   return { play, item, name };
 };
@@ -130,39 +124,24 @@ const Game = (() => {
     ) {
       0;
     } else {
-      gameboard[spotIndex] = currentPlayer.item;
+      Gameboard.gameboard[spotIndex] = currentPlayer.item;
       aSpot.textContent = currentPlayer.item;
 
-      Gameboard.winCheck(gameboard);
+      Gameboard.winCheck(Gameboard.gameboard);
       // change the current player after a person plays
       currentPlayer = currentPlayer === player1 ? player2 : player1;
     }
   };
 
-  const winnerEvaluator = (winnerItem) => {
-    if (winnerItem === player1.item) {
-      console.log(player1.name + 'WON!');
-      document.querySelector('.pb0').classList.toggle('winner');
-    } else if (winnerItem === player2.item) {
-      console.log(player2.name + 'WON!');
-      console.log('LOOKATMEEE');
-      document.querySelector('.pb1').classList.add('winner');
-    } else if (winnerItem === 'draw') {
-      console.log("IT'S A DRAW!!");
-      document.querySelector('.pb0').classList.toggle('winner');
-      document.querySelector('.pb1').classList.toggle('winner');
-    }
-  };
-
-  return { playSpot, winnerEvaluator };
+  return { playSpot };
 })();
+
+Gameboard.boardStarter();
+Gameboard.newGame(Gameboard.gameboard);
 
 const player1 = Player('X', 'player1-name');
 const player2 = Player('O', 'player2-name');
+
+document.querySelector('input').placeholder = player1.name;
+
 let currentPlayer = player1;
-
-Gameboard.boardStarter();
-Gameboard.newGame(gameboard);
-
-document.querySelector('.player-name-0').placeholder = player1.name;
-document.querySelector('.player-name-1').placeholder = player2.name;

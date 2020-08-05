@@ -21,7 +21,6 @@ body {
   color: #ddd;
   background-color: #123456;
   border: 2px solid #ddd;
-  outline: 2px dashed skyblue;
   cursor: pointer;
 
   &:hover {
@@ -35,6 +34,7 @@ body {
   width: 600px;
   height: 600px;
   display: grid;
+  margin: 3rem auto;
   grid-template-columns: repeat(3, 1fr);
   div {
     border-radius: 10px;
@@ -60,12 +60,18 @@ body {
 }
 
 // player boxes
+.around-board {
+  display: flex;
+  justify-content: center;
+}
+
 .player-box {
   border: 2px solid #ccc;
   padding: 1rem;
   display: inline-block;
   margin: 1rem;
-  .player-name {
+  .player-name-0,
+  .player-name-1 {
     display: inline-block;
     font-size: 3rem;
     border: none;
@@ -84,4 +90,9 @@ body {
       color: #333;
     }
   }
+}
+
+// winner style
+.winner {
+  border: 2px solid yellow;
 }

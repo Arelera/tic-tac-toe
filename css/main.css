@@ -18,7 +18,6 @@ body {
   color: #ddd;
   background-color: #123456;
   border: 2px solid #ddd;
-  outline: 2px dashed skyblue;
   cursor: pointer; }
   .btn:hover {
     background-color: #1b4e80; }
@@ -28,6 +27,7 @@ body {
   width: 600px;
   height: 600px;
   display: grid;
+  margin: 3rem auto;
   grid-template-columns: repeat(3, 1fr); }
   #board div {
     border-radius: 10px;
@@ -47,12 +47,17 @@ body {
     font-weight: bold;
     font-size: 13rem; }
 
+.around-board {
+  display: flex;
+  justify-content: center; }
+
 .player-box {
   border: 2px solid #ccc;
   padding: 1rem;
   display: inline-block;
   margin: 1rem; }
-  .player-box .player-name {
+  .player-box .player-name-0,
+  .player-box .player-name-1 {
     display: inline-block;
     font-size: 3rem;
     border: none;
@@ -60,10 +65,16 @@ body {
     background-color: #123456;
     padding: 0.25rem 1rem;
     color: #eee; }
-    .player-box .player-name::placeholder {
+    .player-box .player-name-0::placeholder,
+    .player-box .player-name-1::placeholder {
       color: #eee; }
-    .player-box .player-name:hover {
+    .player-box .player-name-0:hover,
+    .player-box .player-name-1:hover {
       background: #1b4e80; }
-    .player-box .player-name:focus {
+    .player-box .player-name-0:focus,
+    .player-box .player-name-1:focus {
       background: #eee;
       color: #333; }
+
+.winner {
+  border: 2px solid yellow; }
